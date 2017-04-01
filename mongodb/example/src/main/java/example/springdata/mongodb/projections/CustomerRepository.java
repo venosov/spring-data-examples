@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2016 the original author or authors.
+ * Copyright 2015-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import org.springframework.data.repository.CrudRepository;
  * Sample repository managing customers to show projecting functionality of Spring Data MongoDB.
  * 
  * @author Oliver Gierke
+ * @author Víctor Martín Molina
  */
 interface CustomerRepository extends CrudRepository<Customer, ObjectId> {
 
@@ -37,6 +38,8 @@ interface CustomerRepository extends CrudRepository<Customer, ObjectId> {
 	 * @return
 	 */
 	Collection<CustomerProjection> findAllProjectedBy();
+	
+	Collection<CustomerProjection> findAllProjectedDistinctBy();
 
 	/**
 	 * When a projection is used that contains dynamic properties (i.e. SpEL expressions in an {@link Value} annotation),
