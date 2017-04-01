@@ -36,6 +36,8 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
 	 * @return
 	 */
 	Collection<CustomerProjection> findAllProjectedBy();
+	
+	Collection<CustomerProjection> findAllProjectedDistinctBy();
 
 	/**
 	 * When a projection is used that contains dynamic properties (i.e. SpEL expressions in an {@link Value} annotation),

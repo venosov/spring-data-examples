@@ -52,12 +52,13 @@ public class CustomerRepositoryIntegrationTest {
 
 	@Autowired CustomerRepository customers;
 
-	Customer dave, carter;
+	Customer dave, carter2, carter;
 
 	@Before
 	public void setUp() {
 
 		this.dave = customers.save(new Customer("Dave", "Matthews"));
+		this.carter2 = customers.save(new Customer("Carter", "Z"));
 		this.carter = customers.save(new Customer("Carter", "Beauford"));
 	}
 
@@ -66,8 +67,16 @@ public class CustomerRepositoryIntegrationTest {
 
 		Collection<CustomerProjection> result = customers.findAllProjectedBy();
 
-		assertThat(result, hasSize(2));
+		assertThat(result, hasSize(3));
 		assertThat(result.iterator().next().getFirstname(), is("Dave"));
+	}
+	
+	@Test
+	public void distinctProjectsEntityIntoInterface() {
+
+		Collection<CustomerProjection> result = customers.findAllProjectedDistinctBy();
+
+		assertThat(result, hasSize(2));
 	}
 
 	@Test
@@ -75,7 +84,7 @@ public class CustomerRepositoryIntegrationTest {
 
 		Collection<CustomerProjection> result = customers.findsByProjectedColumns();
 
-		assertThat(result, hasSize(2));
+		assertThat(result, hasSize(3));
 		assertThat(result.iterator().next().getFirstname(), is("Dave"));
 	}
 
@@ -84,7 +93,7 @@ public class CustomerRepositoryIntegrationTest {
 
 		Collection<CustomerDto> result = customers.findAllDtoedBy();
 
-		assertThat(result, hasSize(2));
+		assertThat(result, hasSize(3));
 		assertThat(result.iterator().next().getFirstname(), is("Dave"));
 	}
 
